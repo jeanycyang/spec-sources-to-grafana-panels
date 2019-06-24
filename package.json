@@ -1,0 +1,27 @@
+{
+  "name": "swagger-group-by-tags-to-grafana-panels",
+  "version": "1.0.0",
+  "description": "Convert Swagger spec JSON file to Grafana Panels",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeanycyang/swagger-group-by-tags-to-grafana-panels.git"
+  },
+  "keywords": [
+    "grafana",
+    "swagger"
+  ],
+  "author": "Jean Yang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jeanycyang/swagger-group-by-tags-to-grafana-panels/issues"
+  },
+  "homepage": "https://github.com/jeanycyang/swagger-group-by-tags-to-grafana-panels#readme",
+  "dependencies": {
+    "grafana-dash-gen": "^2.6.0"
+  }
+}
