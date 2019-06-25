@@ -6,6 +6,11 @@ const Row = grafana.Row;
 const Dashboard = grafana.Dashboard;
 const Graph = grafana.Panels.Graph;
 
+// Hack: use customized target object
+Graph.prototype.addTarget = function addTarget(target) {
+  this.state.targets.push(target);
+};
+
 const dashboard = new Dashboard({
 	title: 'My Dashboard'
 });
