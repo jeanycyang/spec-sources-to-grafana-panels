@@ -12,18 +12,30 @@ const dashboard = new Dashboard({
 
 const rows = {};
 
+const panels = {};
+
 const BASE_PATH = apis.basePath;
 
 const paths = apis.paths;
-
 Object.entries(paths).forEach(([path, methods]) => {
   Object.entries(methods).forEach(([method, content]) => {
     if (!path.startsWith('http')) {
-      const panel = new Graph({
-        title: `${method} ${BASE_PATH}${path}`,
-        datasource: 'datasource1',
-      });
+      const filterPath = `${BASE_PATH}${path.replace(/{[a-zA-Z0-9_-]{1,}\}/g, '.*')}`
       content.tags.forEach(tag => {
+        const target = { // @TODO
+          filterPath,
+        };
+        if (!panels[tag]) {
+          panels[tag] = [
+            new Graph({
+              title: `${tag} graph`,
+              datasource: 'datasource1',
+              targets: [target],
+            }),
+          ];
+        } else {
+          panels[tag][0].addTarget(target);
+        }
         if (!rows[tag]) {
           rows[tag] = new Row({
             title: tag,
@@ -31,13 +43,13 @@ Object.entries(paths).forEach(([path, methods]) => {
             collapse: true,
           });
         }
-        rows[tag].addPanel(panel)
       });
     }
   });
 });
 
-Object.values(rows).forEach(row => {
+Object.entries(rows).forEach(([tagName, row]) => {
+  row.addPanel(...panels[tagName]);
   dashboard.addRow(row);
 });
 
