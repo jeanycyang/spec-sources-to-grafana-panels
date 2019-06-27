@@ -2,6 +2,8 @@ const grafana = require('grafana-dash-gen');
 const swagger = require('./swagger.example');
 const apis = swagger();
 
+const statusesGraph = require('./graphs/statusesGraph');
+
 const Row = grafana.Row;
 const Dashboard = grafana.Dashboard;
 const Graph = grafana.Panels.Graph;
@@ -27,19 +29,21 @@ Object.entries(paths).forEach(([path, methods]) => {
     if (!path.startsWith('http')) {
       const filterPath = `${BASE_PATH}${path.replace(/{[a-zA-Z0-9_-]{1,}\}/g, '.*')}`
       content.tags.forEach(tag => {
-        const target = { // @TODO
-          filterPath,
-        };
+        const targets = [
+          statusesGraph.target({
+            method,
+            path: `${BASE_PATH}${path}`,
+            filterPath,
+          }),
+        ];
         if (!panels[tag]) {
           panels[tag] = [
-            new Graph({
-              title: `${tag} graph`,
+            new Graph(statusesGraph.graph({
+              title: `${tag} statuses`,
               datasource: 'datasource1',
-              targets: [target],
-            }),
+              targets,
+            })),
           ];
-        } else {
-          panels[tag][0].addTarget(target);
         }
         if (!rows[tag]) {
           rows[tag] = new Row({
