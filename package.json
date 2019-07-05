@@ -1,15 +1,16 @@
 {
-  "name": "swagger-group-by-tags-to-grafana-panels",
+  "name": "spec-sources-to-grafana-panels",
   "version": "1.0.0",
-  "description": "Convert Swagger spec JSON file to Grafana Panels",
+  "description": "convert swagger spec JSON file / rake routes / other sources to grafana panels",
   "main": "index.js",
   "scripts": {
-    "start": "node index",
+    "swagger": "node swagger-json/index",
+    "swagger-json": "node swagger-json/index",
     "test": "mocha"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jeanycyang/swagger-group-by-tags-to-grafana-panels.git"
+    "url": "git+https://github.com/jeanycyang/spec-sources-to-grafana-panels.git"
   },
   "keywords": [
     "grafana",
@@ -18,9 +19,9 @@
   "author": "Jean Yang",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jeanycyang/swagger-group-by-tags-to-grafana-panels/issues"
+    "url": "https://github.com/jeanycyang/spec-sources-to-grafana-panels/issues"
   },
-  "homepage": "https://github.com/jeanycyang/swagger-group-by-tags-to-grafana-panels#readme",
+  "homepage": "https://github.com/jeanycyang/spec-sources-to-grafana-panels#readme",
   "dependencies": {
     "grafana-dash-gen": "^2.6.0"
   }

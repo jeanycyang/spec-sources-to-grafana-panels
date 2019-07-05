@@ -2,7 +2,7 @@ const grafana = require('grafana-dash-gen');
 const swagger = require('./swagger.example');
 const apis = swagger();
 
-const statusesGraph = require('./graphs/statusesGraph');
+const statusesGraph = require('../graphs/statusesGraph');
 
 const Row = grafana.Row;
 const Dashboard = grafana.Dashboard;
