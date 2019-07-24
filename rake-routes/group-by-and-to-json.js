@@ -18,9 +18,9 @@ const ROUTE_FORMAT = /^([a-z_0-9]+)?\s?([A-Z|\|]+)\s+([a-z0-9/(.:_@*)]+)\s+([a-z
 
 const groups = {};
 
-(async function processLineByLine() {
+async function convert(specFile) {
   const readInterface = readline.createInterface({
-    input: fs.createReadStream('./routes.example.txt'),
+    input: fs.createReadStream(specFile),
     console: false,
   });
 
@@ -54,8 +54,9 @@ const groups = {};
   });
 
   await once(readInterface, 'close');
-  console.log(groups);
+  return groups;
+}
 
-  fs.writeFileSync('groups.json', JSON.stringify(groups), 'utf8');
-  console.log('saved!');
-}());
+module.exports = {
+  convert,
+};

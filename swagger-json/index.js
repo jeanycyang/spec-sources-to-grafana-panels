@@ -1,64 +1,24 @@
-const grafana = require('grafana-dash-gen');
-const swagger = require('./swagger.example');
+function convert(specFile) {
+    const rows = {};
 
-const apis = swagger();
+  const panels = {};
 
-const statusesGraph = require('../graphs/statusesGraph');
+  const json = require(specFile);
 
-const { Row, Dashboard, Graph } = grafana;
+  const BASE_PATH = json.apis.basePath;
 
-// Hack: use customized target object
-Graph.prototype.addTarget = function addTarget(target) {
-  this.state.targets.push(target);
-};
+  const { paths } = json.apis;
 
-const dashboard = new Dashboard({
-  title: 'My Dashboard',
-});
-
-const rows = {};
-
-const panels = {};
-
-const BASE_PATH = apis.basePath;
-
-const { paths } = apis;
-Object.entries(paths).forEach(([path, methods]) => {
-  Object.entries(methods).forEach(([method, content]) => {
-    if (!path.startsWith('http')) {
-      const filterPath = `${BASE_PATH}${path.replace(/{[a-zA-Z0-9_-]{1,}\}/g, '.*')}`;
-      content.tags.forEach((tag) => {
-        const targets = [
-          statusesGraph.target({
-            method,
-            path: `${BASE_PATH}${path}`,
-            filterPath,
-          }),
-        ];
-        if (!panels[tag]) {
-          panels[tag] = [
-            new Graph(statusesGraph.graph({
-              title: `${tag} statuses`,
-              datasource: 'datasource1',
-              targets,
-            })),
-          ];
-        }
-        if (!rows[tag]) {
-          rows[tag] = new Row({
-            title: tag,
-            editable: true,
-            collapse: true,
-          });
-        }
-      });
-    }
+  Object.entries(paths).forEach(([path, methods]) => {
+    Object.entries(methods).forEach(([method, content]) => {
+      if (!path.startsWith('http')) {
+      }
+    });
   });
-});
 
-Object.entries(rows).forEach(([tagName, row]) => {
-  row.addPanel(...panels[tagName]);
-  dashboard.addRow(row);
-});
+  Object.entries(rows).forEach(([tagName, row]) => {
+    row.addPanel(...panels[tagName]);
+  });
+}
 
-console.log(JSON.stringify(dashboard.generate()));
+module.exports = { convert };
