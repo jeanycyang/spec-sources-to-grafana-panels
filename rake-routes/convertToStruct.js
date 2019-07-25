@@ -30,7 +30,7 @@ function railsDefaultRoutesFilter(route) {
 const ROUTE_FORMAT = /^([a-z_0-9]+)?\s?([A-Z|\|]+)\s+([a-z0-9/(.:_@*)]+)\s+([a-z0-9/(.:_"#{}=>\s/,)]+)$/;
 
 
-async function convert({
+async function convertToStruct({
   specFile,
   groupBy = groupByController,
   filter = railsDefaultRoutesFilter,
@@ -66,5 +66,6 @@ async function convert({
 }
 
 module.exports = {
-  convert,
+  default: convertToStruct,
+  convertToStruct,
 };
