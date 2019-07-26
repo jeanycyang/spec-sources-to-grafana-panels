@@ -10,3 +10,6 @@ Every `group` is mapped into a Grafana `row`.
 
 ### Panel's JSON Models -> Panels
 Every group item of each group is mapped into one or more Grafana `panel`(s). Pass your panels/graphs JSON models in order for the package to generate Grafana `panel`s for you.
+
+# License
+MIT
