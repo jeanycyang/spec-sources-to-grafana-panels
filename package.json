@@ -4,8 +4,6 @@
   "description": "convert swagger spec JSON file / rake routes / other sources to grafana panels",
   "main": "index.js",
   "scripts": {
-    "swagger": "node swagger-json/index",
-    "swagger-json": "node swagger-json/index",
     "lint": "eslint .",
     "test": "mocha"
   },
@@ -15,7 +13,9 @@
   },
   "keywords": [
     "grafana",
-    "swagger"
+    "swagger",
+    "rake-routes",
+    "rakeRoutes"
   ],
   "author": "Jean Yang",
   "license": "MIT",
