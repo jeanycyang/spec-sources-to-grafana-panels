@@ -6,15 +6,16 @@ const { panel, target } = require('./requestCounts');
 
 (async () => {
   const groups = await convertToStruct({
-    specFile: './rake-routes/routes.example.txt',
+    specFile: './examples/rakeRoutes/routes.example.txt',
     filter: () => true,
     groupBy: route => route.verb,
     mapper: route => ({ ...route, name: `${route.verb} ${route.path}` }),
   });
   console.log(groups);
   const result = convertToPanels({
-    dashboard: { title: '123' },
+    dashboard: { title: 'auto generated using rake routes' },
     groups,
+    datasource: 'Stackdriver - Production',
     panelModels: [{
       name: 'requestCounts',
       panel,
